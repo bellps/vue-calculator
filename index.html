@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="styles.css" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+  <main>
+    <textarea v-model="result"></textarea>
+    <div>
+      <button class="small" @click="clean">C</button>
+      <button class="small" @click="add($event)">**</button>
+      <button class="big" @click="del"><i class="fas fa-backspace fa-lg"></i></button>
+    </div>
+    <div>
+      <button class="small" @click="add($event)">7</button>
+      <button class="small" @click="add($event)">8</button>
+      <button class="small" @click="add($event)">9</button>
+      <button class="small" @click="add($event)">*</button>
+    </div>
+    <div>
+      <button class="small" @click="add($event)">4</button>
+      <button class="small" @click="add($event)">5</button>
+      <button class="small" @click="add($event)">6</button>
+      <button class="small" @click="add($event)">-</button>
+    </div>
+    <div>
+      <button class="small" @click="add($event)">1</button>
+      <button class="small" @click="add($event)">2</button>
+      <button class="small" @click="add($event)">3</button>
+      <button class="small" @click="add($event)">+</button>
+    </div>
+    <div>
+      <button class="small" @click="add($event)">(</button>
+      <button class="small" @click="add($event)">)</button>
+      <button class="small" @click="add($event)">0</button>
+      <button class="small" @click="add($event)">/</button>
+    </div>
+    <div>
+      <button class="big" @click="showHistory">History</button>
+      <button class="small" @click="add($event)">.</button>
+      <button class="small" @click="equals">=</button>
+    </div>
+  </main>
+
+  <script>
+    new Vue({
+      el: 'main',
+      data: {
+        result: '',
+        historic: []
+      },
+      methods: {
+        add(e) {
+          this.result += e.target.innerHTML;
+        },
+        del() {
+          this.result = this.result.slice(0, -1);
+        },
+        clean() {
+          this.result = '';
+        },
+        equals() {
+          let answer = eval(this.result);
+
+          if(answer == 'Infinity') {
+            this.result = 'Can not divide by 0!';
+          } else {
+            this.historic.push(`${this.result} = ${answer}`);
+            this.result = answer.toString();
+          }
+        },
+        showHistory() {
+          if(this.historic.length == 0) {
+            alert('Nothing to show yet!');
+          } else {
+            alert(this.historic.join('\n'));
+          }
+        }
+      },
+    });
+  </script>
+
+</body>
+</html>
