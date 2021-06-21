@@ -12,7 +12,7 @@
 
 <body>
   <main>
-    <textarea v-model="result"></textarea>
+    <textarea v-model="result" readonly></textarea>
     <div>
       <button class="small" @click="clean">C</button>
       <button class="small" @click="add($event)">**</button>
@@ -54,7 +54,7 @@
       el: 'main',
       data: {
         result: '',
-        historic: []
+        history: []
       },
       methods: {
         add(e) {
@@ -72,15 +72,15 @@
           if(answer == 'Infinity') {
             this.result = 'Can not divide by 0!';
           } else {
-            this.historic.push(`${this.result} = ${answer}`);
+            this.history.push(`${this.result} = ${answer}`);
             this.result = answer.toString();
           }
         },
         showHistory() {
-          if(this.historic.length == 0) {
+          if(this.history.length == 0) {
             alert('Nothing to show yet!');
           } else {
-            alert(this.historic.join('\n'));
+            alert(this.history.join('\n'));
           }
         }
       },
