@@ -68,6 +68,10 @@
           this.result = '';
         },
         equals() {
+          if(this.result === '') {
+            return;
+          }
+
           try {
             var answer = eval(this.result);
           } catch(e) {
