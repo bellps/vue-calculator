@@ -54,7 +54,7 @@
       el: 'main',
       data: {
         result: '',
-        history: []
+        history: [],
       },
       methods: {
         add(e) {
@@ -67,7 +67,12 @@
           this.result = '';
         },
         equals() {
-          let answer = eval(this.result);
+          try {
+            var answer = eval(this.result);
+          } catch(e) {
+            alert(`ERROR: ${e.message}`);
+            return this.result = '';
+          }
 
           if(answer == 'Infinity') {
             this.result = 'Can not divide by 0!';
